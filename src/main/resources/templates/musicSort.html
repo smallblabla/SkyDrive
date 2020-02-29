@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>分类音乐</title>
+</head>
+<body class="light-header shadow-layout sticky-footer">
+
+
+<div class="navigation" th:replace="publicHTML :: left-form(34)"/>
+
+<!-- begin::main -->
+<div id="main">
+
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+<!--     begin::main-content -->
+    <main class="main-content">
+
+        <div class="row app-block">
+            <div class="col-md-12 app-content">
+                <div class="app-content-overlay"></div>
+                <div class="card app-content-body">
+                    <div class="app-action" style="margin-bottom: 0px;">
+                        <div class="action-left">
+                            <ul class="list-inline">
+                                <li class="list-inline-item mb-0">
+                                    <button type="button" class="btn btn-outline-secondary btn-uppercase dropdown-toggle" data-toggle="dropdown">
+                                        排序
+                                    </button>
+                                    <!--  <a href="#" class="btn btn-outline-light dropdown-toggle" >
+                                         Order by
+                                     </a> -->
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Date</a>
+                                        <a class="dropdown-item" href="#">Name</a>
+                                        <a class="dropdown-item" href="#">Size</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h6>Root</h6>
+
+                        <div class="row">
+                            <div class="col-xl-2 col-lg-4 col-md-3 col-sm-12" th:each="file:${files}" >
+                                <div class="card app-file-list">
+                                    <div class="app-file-icon">
+                                        <img class="card-img-top"  th:src="${file.picture}" alt="image"
+                                             th:id="${file.fid}" name="file_name" th:value="${file.file_name}" th:data-type="${file.file_type}">
+
+                                        <div class="dropdown position-absolute top-0 right-0 mr-3">
+                                            <a href="#" class="font-size-14" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}">预览</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="downloadFile(this)">下载</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="showShare(),getFid(this)">分享</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="encryption(this)">加密</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="showRename(),getFid(this)">重命名</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="deleteFile(this)">删除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-2 small">
+                                        <div th:text="${file.file_name}">resume.pdf</div>
+                                        <div class="text-muted" th:text="${file.file_size}">1.2mb</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- end::main-content -->
+    <!-- begin::footer -->
+    <footer>
+    </footer>
+    <!-- end::footer -->
+
+
+</div>
+
+
+<th:block th:replace="publicHTML :: script"/>
+<!-- end::main -->
+
+<script th:inline="javascript" type="application/javascript">
+    var fid;
+    function downloadFile(data) {
+        fid = $(data).attr("data-fid");
+        window.open("/download?fid="+ fid,"_self");
+    }
+
+    function getFid(data) {
+        fid = $(data).attr("data-fid");
+    }
+
+    function publicShare() {
+        window.open("/sharePublic?fid="+ fid);
+    }
+
+    function privateShare() {
+        window.open("/shareFile?fid="+ fid);
+    }
+
+
+    function showRename(){
+        var show=document.getElementById("m-rename");
+        var bg_filter=document.getElementById("bg_filter");
+        show.style.visibility = "visible";
+        bg_filter.style.display="block";
+    }
+
+    function deleteRename(){
+        var del=document.getElementById("m-rename");
+        var bg_filter=document.getElementById("bg_filter");
+        bg_filter.style.display="none";
+        del.style.visibility = "hidden";
+    }
+
+    function showShare(){
+        var show=document.getElementById("m-share");
+        var bg_filter=document.getElementById("bg_filter");
+        show.style.visibility = "visible";
+        bg_filter.style.display="block";
+    }
+
+    function deleteShare(){
+        var del=document.getElementById("m-share");
+        var bg_filter=document.getElementById("bg_filter");
+        bg_filter.style.display="none";
+        del.style.visibility = "hidden";
+    }
+
+    function deleteFile(data) {
+        fid = $(data).attr("data-fid");
+        window.open("/musicDelete?fid="+ fid,"_self");
+    }
+    
+    function rename() {
+        window.open("/musicRename?fid="+ fid + "&newName=" + $("#newName").val() ,"_self");
+    }
+
+    function encryption(data) {
+        fid = $(data).attr("data-fid");
+        window.open("/encryptionMusic?fid="+ fid,"_self");
+    }
+
+</script>
+
+    <!--  重命名 -->
+    <div class="m-inputs" id="m-rename" style="visibility: hidden;">
+    <div class="m-f-input">
+        <div class="title">
+            <span class="t_txt">输入新文件名</span>
+        </div>
+        <form action="#">
+            <input name="nowFartherId" th:value="${nowFartherId}" hidden>
+            <input name="showPath" th:value="${showPath}" hidden>
+            <input id="newName" type="text" name="newName" placeholder="名字"/>
+            <input type="button" value="确认" onclick="rename()" />
+        </form>
+    </div>
+</div>
+    <!--  分享 -->
+    <div class="m-inputs" id="m-share" style="visibility: hidden;">
+    <div class="m-f-input">
+        <div class="title">
+            <span class="t_txt">分享</span>
+        </div>
+        <form action="#">
+            <input name="nowFartherId" th:value="${nowFartherId}" hidden>
+            <input name="showPath" th:value="${showPath}" hidden>
+            <input type="button" value="公有分享" onclick="publicShare()" />
+            <input type="button" value="私链分享" onclick="privateShare()" />
+        </form>
+    </div>
+</div>
+    <div class="bg_color" onClick="deleteRename(),deleteShare()" id="bg_filter" style="display: none;"></div>
+
+</form>
+</body>
+</html>

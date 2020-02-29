@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>回收箱</title>
+</head>
+<body class="light-header shadow-layout sticky-footer">
+
+<div class="navigation" th:replace="publicHTML :: left-form(8)"/>
+
+
+<!-- begin::main -->
+<div id="main">
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+    <!--     begin::main-content -->
+    <main class="main-content">
+
+        <div class="row app-block">
+            <div class="col-md-12 app-content">
+                <div class="app-content-overlay"></div>
+                <div class="card app-content-body">
+                    <div class="app-action" style="margin-bottom: 0px;">
+                        <div class="action-left">
+                            <ul class="list-inline">
+                                <li class="list-inline-item mb-0">
+                                    <a class="btn btn-outline-secondary btn-uppercase" href="/deleteRecycle">
+                                        清空回收站
+                                    </a>
+                                    <a class="btn btn-outline-secondary btn-uppercase" href="/reductionRecycle">
+                                        恢复全部文件
+                                    <a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-2 col-lg-4 col-md-3 col-sm-12" th:each="file:${files}" >
+                                <div class="card app-file-list">
+                                    <div class="app-file-icon">
+                                        <img class="card-img-top"  th:src="${file.picture}" alt="image"
+                                             th:id="${file.fid}" name="file_name" th:value="${file.file_name}" th:data-type="${file.file_type}">
+
+                                        <div class="dropdown position-absolute top-0 right-0 mr-3">
+                                            <a href="#" class="font-size-14" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="deletePermanent(this)">彻底删除</a>
+                                                <a href="#" class="dropdown-item" th:data-fid="${file.fid}" onclick="reductionFile(this)">恢复文件</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-2 small">
+                                        <div th:text="${file.file_name}">resume.pdf</div>
+                                        <div class="text-muted" th:text="${file.file_size}">1.2mb</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- end::main-content -->
+    <!-- begin::footer -->
+    <footer>
+    </footer>
+    <!-- end::footer -->
+
+
+</div>
+
+
+</div>
+
+<th:block th:replace="publicHTML :: script"/>
+<!-- end::main -->
+
+<script>
+
+    function deletePermanent(data){
+        fid = $(data).attr("data-fid");
+        window.open("/deletePermanent?fid="+ fid,"_self");
+    }
+
+    function reductionFile(data) {
+        fid = $(data).attr("data-fid");
+        window.open("/reductionFile?fid="+ fid,"_self");
+    }
+
+
+</script>
+</body>
+</html>

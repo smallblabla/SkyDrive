@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>提取文件</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/media/image/favicon.png" th:href="@{/assets/media/image/favicon.png}"/>
+
+    <!-- Plugin styles -->
+    <link rel="stylesheet" href="vendors/bundle.css" type="text/css" th:href="@{/vendors/bundle.css}">
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="assets/css/app.min.css" type="text/css" th:href="@{/assets/css/app.min.css}">
+</head>
+<body class="form-membership">
+
+
+<div class="form-wrapper">
+
+    <!-- logo -->
+    <div id="logo">
+        <h2>分享成功</h2>
+    </div>
+    <!-- ./ logo -->
+
+    <h3>您的提取路径是：</h3>
+    <a th:text="${url}" th:href="${url}"></a>
+    <br>
+    <!-- form -->
+    <h3 style="margin-top:20px;">您的提取码是：</h3>
+    <h5 th:text="${password}"></h5>
+    <hr>
+    <!-- ./ form -->
+
+</div>
+
+<!-- Plugin scripts -->
+<script src="vendors/bundle.js" th:src="@{/vendors/bundle.js}"></script>
+
+<!-- App scripts -->
+<script src="assets/js/app.min.js" th:src="@{/assets/js/app.min.js}"></script>
+</body>
+</html>

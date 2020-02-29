@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>安全箱</title>
+</head>
+<body class="light-header shadow-layout form-membership sticky-footer" style="padding: 0px;">
+
+<div class="navigation" th:replace="publicHTML :: left-form(7)"/>
+
+<!-- begin::main -->
+<div id="main">
+
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+    <!--     begin::main-content -->
+    <main class="main-content">
+        <div class="form-wrapper">
+
+                    <!-- logo -->
+                    <div id="logo">
+                        <img class="logo" th:src="@{/img/logo/logo.png}" alt="image">
+                    </div>
+                    <!-- ./ logo -->
+
+                    <h5>输入你的密码</h5>
+
+                    <!-- form -->
+                    <form action="/safe">
+                        <div class="form-group d-flex align-items-center">
+                            <div class="mr-3">
+                                <figure class="mb-4 avatar avatar-sm">
+                                    <img th:src="${session.user.picture}" class="rounded-circle" alt="avatar">
+                                </figure>
+                            </div>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required="" autofocus="">
+                        </div>
+                        <input class="btn btn-primary btn-block" type="submit" value="确认提交">
+                        <hr>
+                    </form>
+                    <!-- ./ form -->
+
+                </div>
+
+    </main>
+    <!-- end::main-content -->
+    <!-- begin::footer -->
+    <footer>
+    </footer>
+    <!-- end::footer -->
+
+
+</div>
+
+
+<th:block th:replace="publicHTML :: script"/>
+<!-- end::main -->
+
+
+</form>
+</body>
+</html>

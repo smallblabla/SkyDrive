@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pfy.cloud.service.ShareFileService">
+<!--    <resultMap id="user" type="com.pfy.entity.User">-->
+<!--        <result property="id" column="id"/>-->
+<!--        <result property="pwd" column="password"/>-->
+<!--        <result property="username" column="username"/>-->
+<!--    </resultMap>-->
+
+    <insert id="addShareFile" parameterType="com.pfy.cloud.entity.ShareFile">
+        insert into share_file values (#{id},#{uid},#{file_name},#{file_type},#{file_size},#{md5},#{real_position},#{show_position},#{share_state},#{password},#{create_time},#{delete_time},#{picture})
+    </insert>
+
+    <select id="selectShareFile" parameterType="Map" resultType="com.pfy.cloud.entity.ShareFile">
+        select * from share_file where id = #{id} and md5 like #{md5}
+    </select>
+
+    <select id="selectShareFileById" parameterType="int" resultType="com.pfy.cloud.entity.ShareFile">
+        select * from share_file where id = #{id}
+    </select>
+
+    <select id="findPublicFile" parameterType="int" resultType="com.pfy.cloud.entity.ShareFile">
+        select * from share_file where uid = #{uid} and share_state like "共有分享"
+    </select>
+
+    <select id="findPrivateFile" parameterType="int" resultType="com.pfy.cloud.entity.ShareFile">
+        select * from share_file where uid = #{uid} and share_state like "私链分享"
+    </select>
+
+    <delete id="deleteFileById" parameterType="int">
+        delete from share_file where id = #{fid}
+    </delete>
+
+    <select id="searchFile" parameterType="String" resultType="com.pfy.cloud.entity.ShareFile">
+        <bind name="pattern" value="'%' + search + '%'" />
+        select * from share_file where share_state like "共有分享" and file_name like #{pattern} or file_type like #{pattern}
+    </select>
+<!--    uid,father_fid,file_name,file_type,file_size,md5,real_position,show_position,share_state,create_time-->
+</mapper>

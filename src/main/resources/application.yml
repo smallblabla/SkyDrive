@@ -1,0 +1,60 @@
+server:
+  port: 7777
+
+spring:
+#  thyleaf相关配置
+  thymeleaf:
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+
+
+  #开启静态资源扫描
+  mvc:
+    static-path-pattern: /**
+  #开启热部署
+    devtools:
+      restart.enabled: true
+  #设置最大上传大小
+    servlet:
+      multipart:
+        enabled: true
+        max-file-size: 5GB
+        max-request-size: 5GB
+        connectionTimeout: 180000
+
+  #  数据库相关配置
+  datasource:
+    username: root
+    password: pfy19981012
+    url: jdbc:mysql://localhost:3306/cloud?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+#mybatis包扫描
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pfy.cloud.entity
+
+
+#日志相关
+logging:
+  level:
+    root: warn
+    com.pfy: debug
+  file: log/imcoding.log
+
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>文件记录</title>
+</head>
+<body class="light-header shadow-layout sticky-footer">
+
+<div class="navigation" th:replace="publicHTML :: left-form(1)"/>
+
+
+<!-- begin::main -->
+<div id="main">
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+    <!-- begin::main-content -->
+    <main class="main-content">
+
+        <div class="row app-block">
+            <div class="col-md-12 app-content">
+                <div class="app-content-overlay"></div>
+                <div class="card app-content-body">
+                    <div class="app-action" style="margin-bottom: 0px;">
+                        <div class="action-left">
+                            <ul class="list-inline">
+                                <li class="list-inline-item mb-0">
+                                    <button type="button" class="btn btn-outline-secondary btn-uppercase dropdown-toggle" data-toggle="dropdown">
+                                        排序
+                                    </button>
+                                    <!--  <a href="#" class="btn btn-outline-light dropdown-toggle" >
+                                         Order by
+                                     </a> -->
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Date</a>
+                                        <a class="dropdown-item" href="#">Name</a>
+                                        <a class="dropdown-item" href="#">Size</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h6 class="font-size-11 text-uppercase mb-4">Root</h6>
+
+                        <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">文件名</th>
+                                    <th scope="col">大小</th>
+                                    <th scope="col">最近操作时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="file,fileState:${files}">
+                                    <th scope="row" th:text="${fileState.index+1}">1</th>
+                                    <td th:text="${file.file_name}">Mark</td>
+                                    <td th:text="${file.file_size}">Otto</td>
+                                    <td th:text="${file.change_time}">@mdo</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- end::main-content -->
+
+    <!-- begin::footer -->
+    <footer>
+    </footer>
+    <!-- end::footer -->
+
+
+</div>
+
+<th:block th:replace="publicHTML :: script"/>
+<!-- end::main -->
+
+</body>
+</html>

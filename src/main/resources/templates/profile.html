@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>个人信息</title>
+</head>
+
+<div class="navigation" th:replace="publicHTML :: left-form(31)"/>
+
+</div>
+
+
+<div id="main">
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+    <!-- begin::main-content -->
+    <main class="main-content">
+
+        <div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <figure class="avatar avatar-lg m-b-20">
+                                <img src="assets/media/image/user/man_avatar3.jpg" class="rounded-circle" alt="..." th:src="${session.user.picture}">
+                            </figure>
+                            <h5 class="mb-1" th:text="${session.user.nickname}">昵称</h5>
+                            <p class="text-muted small" th:text="${session.user.identity}">身份</p>
+                            <p>简单</p>
+                        </div>
+                        <hr class="m-0">
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-6 text-info">
+                                    <h4 class="font-weight-bold" th:text="${session.user.useMemory}+'MB'">291</h4>
+                                    <span>已用空间</span>
+                                </div>
+                                <div class="col-6 text-success">
+                                    <h4 class="font-weight-bold" th:text="${session.user.allMemory}+'GB'">10.596</h4>
+                                    <span>总空间</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title d-flex justify-content-between align-items-center">
+                                权限介绍
+                                <a href="#" class="btn btn-outline-light btn-sm">
+                                    提高权限
+                                </a>
+                            </h6>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">会员级别:</div>
+                                <div class="col-6">普通会员</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">可用空间:</div>
+                                <div class="col-6">2G</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">上传速度:</div>
+                                <div class="col-6">1m</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">下载速度:</div>
+                                <div class="col-6">1m</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">分享数量:</div>
+                                <div class="col-6">10</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">私密空间:</div>
+                                <div class="col-6">2G</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title d-flex justify-content-between align-items-center">
+                                更换头像
+                                <a href="#" class="btn btn-outline-light btn-sm">
+                                    点击图片更换
+                                </a>
+                            </h6>
+                            <div class="row row-xs">
+                                <a href="/changePortrait?id=1" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/1.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=2" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/2.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=3" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/3.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=4" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/4.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=5" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/5.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=6" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/6.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=7" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/7.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=8" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/8.jpg}" alt="image">
+                                </a>
+                                <a href="/changePortrait?id=9" class="col-lg-4 mb-3">
+                                    <img class="img-fluid rounded" th:src="@{/img/portrait/9.jpg}" alt="image">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">个人详细</h6>
+                            <ul class="nav nav-tabs mb-2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">信息查看</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"aria-controls="profile" aria-selected="false">修改信息</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="card-body">
+                                        <p class="lead">基本信息</p>
+                                        <div class="row mb-2">
+                                            <div class="col-3 text-muted">用户名：</div>
+                                            <div class="col-3 text-muted">昵称：</div>
+                                            <div class="col-3 text-muted">性别：</div>
+                                            <div class="col-3 text-muted">身份：</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-3" th:text="${session.user.username}">pfy123</div>
+                                            <div class="col-3" th:text="${session.user.nickname}">Johnatan</div>
+                                            <div class="col-3" th:text="${session.user.sex}">男</div>
+                                            <div class="col-3" th:text="${session.user.identity}">学生</div>
+                                        </div>
+                                        <br>
+                                        <div class="row mb-2">
+                                            <div class="col-3 text-muted" >邮箱：</div>
+                                            <div class="col-3 text-muted" >电话：</div>
+                                            <div class="col-3 text-muted" >创建时间：</div>
+                                            <div class="col-3 text-muted" >最近登录：</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-3" th:text="${session.user.email}">pfy123</div>
+                                            <div class="col-3" th:text="${session.user.phone}">Johnatan</div>
+                                            <div class="col-3" th:text="${session.user.createTime}">男</div>
+                                            <div class="col-3" th:text="${session.user.lastLoginTime}">学生</div>
+                                        </div>
+                                        <br>
+                                        <div class="row mb-2">
+                                            <div class="col-12 text-muted" >个人简介：</div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-12" th:text="${session.user.profile}"></div>
+                                        </div>
+                                        <br>
+                                        <br>
+<!--                                        <p class="lead">网站须知-->
+<!--                                        </p>-->
+<!--                                        <div class="row mb-2">-->
+<!--                                            <div class="col-12">pfy123</div>-->
+<!--                                        </div>-->
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <p class="lead">基本信息
+                                    </p>
+                                    <form action="/changeProfile">
+                                        <div class="form-group">
+                                            <label>昵称</label>
+                                            <input type="text" class="form-control" name="nickname" th:value="${session.user.nickname}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>身份</label>
+                                            <input type="text" class="form-control" name="identity" th:value="${session.user.identity}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>性别</label>
+                                            <select name="sex" class="form-control">
+                                                <option value="男">男</option>
+                                                <option value="女">女</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>邮箱</label>
+                                            <input type="text" class="form-control" name="email" th:value="${session.user.email}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>电话</label>
+                                            <input type="text" class="form-control" name="phone" th:value="${session.user.phone}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>个人简介</label>
+                                            <textarea class="col-md-12" style="height: 150px;" name="profile" th:text="${session.user.profile}"></textarea>
+                                        </div>
+                                        <input type="submit" class="btn btn-primary" value="保存修改">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- end::main-content -->
+
+</div>
+
+<th:block th:replace="publicHTML :: script"/>
+</body>
+</html>

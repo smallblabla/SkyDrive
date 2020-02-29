@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>提取文件</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/media/image/favicon.png" th:href="@{/assets/media/image/favicon.png}"/>
+
+    <!-- Plugin styles -->
+    <link rel="stylesheet" href="vendors/bundle.css" type="text/css" th:href="@{/vendors/bundle.css}">
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="assets/css/app.min.css" type="text/css" th:href="@{/assets/css/app.min.css}">
+</head>
+<body class="form-membership">
+
+
+<div class="form-wrapper">
+
+    <!-- logo -->
+    <div id="logo">
+        <h2>提取文件</h2>
+    </div>
+    <!-- ./ logo -->
+        <div class="row" style="margin-bottom: 0px; margin-left: 35px;">
+            <div class="col-md-12">
+                <div class="card app-file-list">
+                    <div class="app-file-icon">
+                        <img class="card-img-top" th:src="${shareFile.picture}">
+                    </div>
+                    <div class="p-2 small">
+                        <div th:text="${shareFile.file_name}">25.log</div>
+                        <div class="text-muted" th:text="${shareFile.file_size}">3.33KB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <a th:href="'/download?fid='+${shareFile.id}" class="btn btn-outline-warning btn-pulse">下载</a>
+    or
+    <a href="#" class="btn btn-outline-warning btn-pulse">转存</a>
+
+    <!-- ./ form -->
+
+</div>
+
+<!-- Plugin scripts -->
+<script src="vendors/bundle.js" th:src="@{/vendors/bundle.js}"></script>
+
+<!-- App scripts -->
+<script src="assets/js/app.min.js" th:src="@{/assets/js/app.min.js}"></script>
+</body>
+</html>

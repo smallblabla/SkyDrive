@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pfy.cloud.service.FileService">
+
+    <insert id="addFile" parameterType="com.pfy.cloud.entity.Cfile">
+        insert into cfile values (#{fid},#{uid},#{father_fid},#{file_name},#{file_type},#{file_size},#{md5},#{real_position},#{show_position},#{encryption},#{share_state},#{delete_state},#{create_time},#{change_time},#{picture})
+    </insert>
+
+    <select id="findUserFile" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid}
+    </select>
+
+    <select id="findFileByF" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} and father_fid = #{f_fid} and delete_state = 0 and encryption = false
+    </select>
+
+    <select id="findDeleteFile" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} and delete_state=1
+    </select>
+
+    <select id="findIdByName" parameterType="String" resultType="int">
+        select fid from cfile where file_name like #{file_name}
+    </select>
+
+    <select id="findFatherIdById" parameterType="int" resultType="int">
+        select father_fid from cfile where fid = #{fid}
+    </select>
+
+    <select id="findFileById" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where fid = #{fid}
+    </select>
+
+    <select id="findSonById" parameterType="int" resultType="int">
+        select fid from cfile where father_fid = #{father_fid}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        delete from cfile where fid = #{fid}
+    </delete>
+
+    <update id="updateFileShare" parameterType="Map">
+        update cfile set share_state = #{share_state} where fid = #{fid}
+    </update>
+
+    <update id="updateFileDelete" parameterType="Map">
+        update cfile set delete_state = #{state} where fid = #{fid}
+    </update>
+
+    <update id="fileRename" parameterType="Map">
+        update cfile set file_name = #{newName} where fid = #{fid}
+    </update>
+
+    <delete id="deleteRecycleFile" parameterType="int">
+        delete from cfile where uid = #{uid} and delete_state = 1 or 2
+    </delete>
+
+    <update id="updateRecycleFile" parameterType="int">
+        update cfile set delete_state = 0 where uid = #{uid}
+    </update>
+
+    <select id="findRecycleFile" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} and delete_state = 1 or 2
+    </select>
+
+    <update id="updateFileEncryption" parameterType="Map">
+        update cfile set encryption = #{encryption} where fid = #{fid}
+    </update>
+
+    <select id="findSortFile" parameterType="Map" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} and file_type like #{file_type} and delete_state = 0 and encryption = false
+    </select>
+
+    <select id="findSafeFile" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} and delete_state = 0 and encryption = true
+    </select>
+
+    <update id="updateAllSafe" parameterType="int">
+        update cfile set encryption = false where uid = #{uid} and encryption = true
+    </update>
+
+    <update id="updateFileTime" parameterType="Map">
+        update cfile set change_time = #{change_time} where fid = #{fid}
+    </update>
+
+    <select id="findLately" parameterType="int" resultType="com.pfy.cloud.entity.Cfile">
+        select * from cfile where uid = #{uid} order by change_time desc limit 10
+    </select>
+
+    <select id="findSearchFile" parameterType="Map" resultType="com.pfy.cloud.entity.Cfile">
+        <bind name="pattern" value="'%' + search + '%'" />
+        select * from cfile where uid = #{uid} and file_name like #{pattern} and delete_state = 0 and encryption = false
+    </select>
+
+<!--    uid,father_fid,file_name,file_type,file_size,md5,real_position,show_position,share_state,create_time-->
+</mapper>

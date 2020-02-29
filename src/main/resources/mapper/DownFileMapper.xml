@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pfy.cloud.service.DownFileService">
+            <resultMap id="DownFile" type="com.pfy.cloud.entity.DownFile">
+                <result property="fid" column="fid"/>
+                <result property="uid" column="uid"/>
+                <result property="file_name" column="file_name"/>
+                <result property="file_size" column="file_size"/>
+                <result property="lastDownTime" column="last_down_time"/>
+                <result property="downSum" column="down_sum"/>
+            </resultMap>
+
+    <insert id="addDownFile" parameterType="com.pfy.cloud.entity.DownFile">
+        insert into down_file(fid,uid,file_name,file_size,last_down_time,down_sum) values (#{fid},#{uid},#{file_name},#{file_size},#{lastDownTime},#{downSum})
+    </insert>
+
+    <update id="updateTimeSum" parameterType="Map">
+        update down_file set last_down_time = #{time},down_sum = down_sum+1 where fid = #{fid}
+    </update>
+
+    <select id="findDownFile" parameterType="int" resultMap="DownFile">
+        select * from down_file where fid = #{fid}
+    </select>
+
+    <select id="findAllDownFile" parameterType="int" resultMap="DownFile">
+        select * from down_file where uid = #{uid} order by down_sum desc
+    </select>
+
+</mapper>

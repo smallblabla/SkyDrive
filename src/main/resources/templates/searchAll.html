@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="publicHTML :: head(~{::title})">
+    <title>搜索结果</title>
+</head>
+<body>
+
+<div class="navigation" th:replace="publicHTML :: left-form(5)"/>
+
+<!-- begin::main -->
+<div id="main">
+
+    <!-- begin::header -->
+    <div th:replace="publicHTML :: top"/>
+    <!-- end::header -->
+
+    <!-- begin::main-content -->
+    <main class="main-content">
+
+        <div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card card-body p-0 overflow-hidden">
+                        <div class="page-header page-header-cover p-t-b-40 mb-0" data-backround-image="assets/media/image/image1.png">
+                            <div class="container">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-6">
+                                        <h2 class="mb-4 text-center">你想搜索什么内容?</h2>
+                                        <form action="/toSearchAll">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="search" class="form-control" aria-label="Example text with button addon" placeholder="Search..." aria-describedby="button-addon1">
+                                                <div class="input-group-append">
+                                                    <input class="btn btn-primary" type="submit" id="button-addon1" value="搜索">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <ul class="list-inline mt-3">
+                                            <li class="list-inline-item">
+                                                <a href="#">图片</a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#">电影</a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#">音乐</a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#">文本</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card app-content-body">
+                        <div class="card-body">
+
+                            <h6 class="font-size-11 text-uppercase mb-4">搜索结果</h6>
+
+                            <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">文件名</th>
+                                        <th scope="col">大小</th>
+                                        <th scope="col">分享时间</th>
+                                        <th class="text-right" scope="col">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="file,fileState : ${pageShareFiles.list}">
+                                        <th th:text="${fileState.index+1}">1</th>
+                                        <td th:text="${file.file_name}">Mark</td>
+                                        <td th:text="${file.file_size}">Otto</td>
+                                        <td th:text="${file.create_time}">@mdo</td>
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="btn btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <button class="dropdown-item" type="button" th:data-fid="${file.id}" onclick="downloadFile(this)">下载</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-5">当前第<span th:text="${pageShareFiles.pageNum}"></span>页,总 <span th:text="${pageShareFiles.pages}"></span> 页,共找到<span th:text="${pageShareFiles.total}"></span>个文件</div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-outline-secondary" th:href="@{/toSearchAll(search=${search})}">首页</a>
+                                    <a class="btn btn-outline-secondary" th:href="@{/toSearchAll(search=${search},pageNum=${pageShareFiles.hasPreviousPage}?${pageShareFiles.prePage}:1)}">上一页</a>
+                                    <a class="btn btn-outline-secondary" th:href="@{/toSearchAll(search=${search},pageNum=${pageShareFiles.hasNextPage}?${pageShareFiles.nextPage}:${pageShareFiles.pages})}">下一页</a>
+                                    <a class="btn btn-outline-secondary" th:href="@{/toSearchAll(search=${search},pageNum=${pageShareFiles.pages})}">尾页</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <!-- end::main-content -->
+
+
+</div>
+<!-- end::main -->
+
+<th:block th:replace="publicHTML :: script"/>
+
+<script>
+    function downloadFile(data) {
+        fid = $(data).attr("data-fid");
+        window.open("/download?fid="+ fid,"_self");
+    }
+</script>
+</body>
+</html>
